@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:market/views/auth/ui/login.dart';
+import 'package:market/views/auth/ui/WIDGETS/app_colors.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,13 +13,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+
+      debugShowCheckedModeBanner: true,
+
+      title: 'Market',
       theme: ThemeData(
+        scaffoldBackgroundColor: AppColors.kScaffoldColor,
 
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const OnMarket(),
+      home:  Login(),
     );
   }
 }
