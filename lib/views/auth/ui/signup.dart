@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:market/views/auth/ui/forget_password.dart';
 import 'WIDGETS/button_of_login.dart';
 import 'WIDGETS/text_button.dart';
 import 'WIDGETS/text_form_fild.dart';
+import 'forget_password.dart';
 
 class SignUp extends StatelessWidget {
   SignUp({super.key});

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:market/views/auth/ui/WIDGETS/app_colors.dart';
-import 'package:market/views/auth/ui/WIDGETS/button_of_login.dart';
-import 'package:market/views/auth/ui/WIDGETS/text_form_fild.dart';
 
 import 'WIDGETS/Custom_btn.dart';
+import 'WIDGETS/text_form_fild.dart';
 
 class Forget_Password extends StatelessWidget {
    Forget_Password({super.key});
