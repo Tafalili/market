@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:market/views/main_home/home_page.dart';
 import 'package:market/views/auth/ui/login.dart';
 import 'package:market/views/auth/ui/WIDGETS/app_colors.dart';
 
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home:  Login(),
+      home:  MainHome(),
     );
   }
 }
