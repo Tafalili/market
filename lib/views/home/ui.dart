@@ -15,11 +15,16 @@ class Nav_Home extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 8),
               child: TextFormField(
 
-                decoration: InputDecoration(
-                  label: Text("ابحث عن اي منتج من هنا",style: TextStyle(color: AppColors.kGreyColor),),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-                  suffixIcon: Icon(Icons.search,),
 
+                decoration: InputDecoration(
+
+                  label: Text("ابحث عن اي منتج من هنا",style: TextStyle(color: AppColors.kGreyColor),),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: BorderSide(color: AppColors.kGreyColor)),
+                    enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: BorderSide(color: Colors.black12)),
+                    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: BorderSide(color: AppColors.kBlackColor,width: 2)),
+                    contentPadding: EdgeInsets.symmetric(vertical: 13.5, horizontal: 12), // Sets TextFormField height
+                    suffixIcon: ElevatedButton.icon(onPressed: (){}, label: const Icon(Icons.search,color: Colors.white,),style: ElevatedButton.styleFrom( fixedSize: Size(30, 20),backgroundColor: AppColors.kPrimaryColor,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)))),
+                  suffixIconColor: AppColors.kWhiteColor,
                   fillColor: AppColors.kWhiteColor,
                   filled: true
 
