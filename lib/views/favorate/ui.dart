@@ -3,7 +3,6 @@ import 'package:market/views/home/home_tools/slider.dart';
 import '../../core/components/list_of_products.dart';
 import '../../core/components/search_fild.dart';
 
-
 class Nav_Favorate extends StatefulWidget {
   const Nav_Favorate({super.key});
 
@@ -12,26 +11,23 @@ class Nav_Favorate extends StatefulWidget {
 }
 
 class _Nav_FavorateState extends State<Nav_Favorate> {
-
-
   @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
+        floatingActionButton: null, // Explicitly disable FAB
         body: SafeArea(
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              // Align text properly for RTL
               children: [
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+                  child: custom_search_fild(), // Add missing search field
                 ),
-
                 const Padding(
                   padding: EdgeInsets.only(right: 16, top: 8),
-                  // Adjusted for RTL
                   child: Center(
                     child: Text(
                       "المنتجات المفضله",
@@ -43,10 +39,11 @@ class _Nav_FavorateState extends State<Nav_Favorate> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 15,
+                const SizedBox(height: 15),
+                List_of_products(
+                  shrink: true,
+                  phisics: const NeverScrollableScrollPhysics(),
                 ),
-                List_of_products()
               ],
             ),
           ),
@@ -55,6 +52,3 @@ class _Nav_FavorateState extends State<Nav_Favorate> {
     );
   }
 }
-
-
-

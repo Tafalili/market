@@ -19,6 +19,7 @@ class _Nav_StoreState extends State<Nav_Store> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
+        floatingActionButton: null,
         body: SafeArea(
           child: SingleChildScrollView(
             child: Column(
@@ -29,13 +30,13 @@ class _Nav_StoreState extends State<Nav_Store> {
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                   child: custom_search_fild(), // Fixed widget name assumption
                 ),
-
-
-
+            
+            
+            
                 SizedBox(
                   height: 15,
                 ),
-                List_of_products()
+                List_of_products(shrink: true,)
               ],
             ),
           ),

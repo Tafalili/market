@@ -70,7 +70,7 @@ class _Nav_HomeState extends State<Nav_Home> {
                 SizedBox(
                   height: 15,
                 ),
-                List_of_products()
+                List_of_products(shrink: true,)
               ],
             ),
           ),
