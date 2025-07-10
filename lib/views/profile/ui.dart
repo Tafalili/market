@@ -1,11 +1,68 @@
 import 'package:flutter/material.dart';
+import 'package:market/views/auth/ui/WIDGETS/app_colors.dart';
+import 'package:market/views/profile/widgets/buttons_of_profile.dart';
 
 class Nav_Profile extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(child:Center(child: Text("nav Profile"),)),
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        body: SafeArea(
+            child: Center(
+          child: Container(
+            height: 450,
+            margin: EdgeInsets.all(15),
+            child: Card(
+
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    CircleAvatar(
+                      maxRadius: 40,
+                      backgroundColor: AppColors.kPrimaryColor,
+                      child: Icon(
+                        size: 40,
+                        Icons.person,
+                        color: AppColors.kWhiteColor,
+                      ),
+                    ),
+                    SizedBox(height: 15,),
+
+                    Text(
+                      "Mustafa M. Saleh",
+                      style: TextStyle(
+                        color: AppColors.kBlackColor,
+                      ),
+                    ),
+                    Text(
+                      "ttofe90@gmail.com",
+                      style: TextStyle(
+                        color: AppColors.kGreyColor,
+                      ),
+                    ),
+                    SizedBox(height: 20,),
+                    profile_button(lable: 'تعديل الاسم',left: Icons.arrow_forward_ios_outlined,right: Icons.person,),
+                    SizedBox(height: 10,),
+
+                    profile_button(lable: 'طلباتي',left: Icons.arrow_forward_ios_outlined,right: Icons.shopping_basket,),
+                    SizedBox(height: 10,),
+
+                    profile_button(lable: 'تسجيل الخروج',left: Icons.arrow_forward_ios_outlined,right: Icons.logout,),
+
+                  ],
+                ),
+              ),
+            ),
+          ),
+        )),
+      ),
     );
   }
 }
+
