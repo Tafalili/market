@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:market/views/home/home_tools/slider.dart';
+import '../../core/components/list_of_products.dart';
 import '../../core/components/search_fild.dart';
 import '../auth/ui/WIDGETS/app_colors.dart';
 import 'home_tools/card_of_products.dart';
@@ -69,7 +70,7 @@ class _Nav_HomeState extends State<Nav_Home> {
                 SizedBox(
                   height: 15,
                 ),
-                card_of_products()
+                List_of_products()
               ],
             ),
           ),
@@ -78,4 +79,6 @@ class _Nav_HomeState extends State<Nav_Home> {
     );
   }
 }
+
+
 
