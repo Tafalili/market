@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:market/views/Nav_bar/logic/nav_bar_cubit.dart';
-import 'package:market/views/home/ui.dart';
+import 'package:market/views/home/home_nav_ui.dart';
 import 'package:market/views/store/ui.dart';
 import 'package:market/views/favorate/ui.dart';
 import 'package:market/views/profile/ui.dart';
