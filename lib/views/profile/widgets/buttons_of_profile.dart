@@ -3,16 +3,17 @@ import '../../auth/ui/WIDGETS/app_colors.dart';
 
 class profile_button extends StatelessWidget {
   const profile_button({
-    super.key, required this.lable, required this.left, required this.right,
+    super.key, required this.lable, required this.left, required this.right, required this.doIt,
   });
   final String lable;
   final IconData left;
   final IconData right;
+  final VoidCallback doIt;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: doIt,
       style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.kPrimaryColor,
           shape: RoundedRectangleBorder(
