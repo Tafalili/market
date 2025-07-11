@@ -22,23 +22,21 @@ class _Nav_FavorateState extends State<Nav_Favorate> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Center(
+                  child: Text(
+                    "المنتجات المفضله",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 35,
+                    ),
+                  ),
+                ),
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                   child: custom_search_fild(), // Add missing search field
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(right: 16, top: 8),
-                  child: Center(
-                    child: Text(
-                      "المنتجات المفضله",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 35,
-                      ),
-                    ),
-                  ),
-                ),
+
                 const SizedBox(height: 15),
                 List_of_products(
                   shrink: true,

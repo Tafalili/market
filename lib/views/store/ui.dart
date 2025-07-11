@@ -26,17 +26,24 @@ class _Nav_StoreState extends State<Nav_Store> {
               crossAxisAlignment: CrossAxisAlignment.start,
               // Align text properly for RTL
               children: [
+                Center(
+                  child: Text(
+                    "المتجر",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 35,
+                    ),
+                  ),
+                ),
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                   child: custom_search_fild(), // Fixed widget name assumption
                 ),
-            
-            
-            
                 SizedBox(
                   height: 15,
                 ),
-                List_of_products(shrink: true,)
+                List_of_products(shrink: true,phisics: NeverScrollableScrollPhysics(),)
               ],
             ),
           ),

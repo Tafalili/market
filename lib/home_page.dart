@@ -14,7 +14,6 @@ class MainHome extends StatelessWidget {
   final List<Widget> view = [
     Nav_Home(),
     Nav_Store(),
-
     Nav_Favorate(),
     Nav_Profile(),
 

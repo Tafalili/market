@@ -31,6 +31,7 @@ class _Nav_HomeState extends State<Nav_Home> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
+        floatingActionButton: null,
         body: SafeArea(
           child: SingleChildScrollView(
             child: Column(
@@ -70,7 +71,7 @@ class _Nav_HomeState extends State<Nav_Home> {
                 SizedBox(
                   height: 15,
                 ),
-                List_of_products(shrink: true,)
+                List_of_products(shrink: true,phisics: NeverScrollableScrollPhysics(),)
               ],
             ),
           ),
