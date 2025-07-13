@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:market/home_page.dart';
+import 'package:market/views/auth/logic/authintication_cubit.dart';
 import 'package:market/views/auth/ui/login.dart';
 import 'package:market/views/auth/ui/WIDGETS/app_colors.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 
 void main() async {
-  await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
 
   await Supabase.initialize(
     url: dotenv.env['SUPABASE_URL']!,
@@ -24,26 +26,23 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return BlocProvider(
+      create: (context) => AuthinticationCubit(),
+      child: MaterialApp(
 
-      debugShowCheckedModeBanner: true,
+        debugShowCheckedModeBanner: true,
 
-      title: 'Market',
-      theme: ThemeData(
-        scaffoldBackgroundColor: AppColors.kScaffoldColor,
+        title: 'Market',
+        theme: ThemeData(
+          scaffoldBackgroundColor: AppColors.kScaffoldColor,
 
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: Login(),
       ),
-      home:  MainHome(),
     );
   }
 }
-class OnMarket extends StatelessWidget {
-  const OnMarket({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}
+

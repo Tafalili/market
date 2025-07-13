@@ -16,6 +16,13 @@ class CustomTFF extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'هذا الحقل إجباري';
+        }
+        return null;
+      },
+
       keyboardType: textInputType,
       obscureText: obscureText,
       controller: control_password,
