@@ -25,6 +25,9 @@ class _SignUpState extends State<SignUp> {
     control_name.dispose();
     super.dispose();
   }
+
+  bool isPasswordHiden = true;
+
   TextEditingController control_username = TextEditingController();
   TextEditingController control_password = TextEditingController();
   TextEditingController control_name = TextEditingController();
@@ -34,8 +37,10 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthinticationCubit, AuthinticationState>(
       listener: (context, state) {
-        if (state is Login_Success){
-          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MainHome(),));
+        if (state is Login_Success) {
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => MainHome(),
+          ));
         }
         if (state is Login_Error) {
           print("#############################################");
@@ -44,85 +49,125 @@ class _SignUpState extends State<SignUp> {
           ShowMesage(context, state.message);
         }
       },
-  builder: (context, state) {
-        AuthinticationCubit cubit =context.read<AuthinticationCubit>() ;
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: SafeArea(
-        child: Scaffold(
-          body: state is Login_Loading?circle_progress(): SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 25,
-                ),
-                Center(
-                    child: Text(
-                      "اهلا بكم في متجرنا",
-                      style: TextStyle(fontSize: 30),
-                    )),
-                SizedBox(
-                  height: 30,
-                ),
-                Container(
-                  margin: EdgeInsets.all(15),
-                  child: Card(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Form(
-                        key: _fromkey,
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 20,
+      builder: (context, state) {
+        AuthinticationCubit cubit = context.read<AuthinticationCubit>();
+        return Directionality(
+          textDirection: TextDirection.rtl,
+          child: SafeArea(
+            child: Scaffold(
+              body: state is Login_Loading
+                  ? circle_progress()
+                  : SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 25,
+                          ),
+                          Center(
+                              child: Text(
+                            "اهلا بكم في متجرنا",
+                            style: TextStyle(fontSize: 30),
+                          )),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          Container(
+                            margin: EdgeInsets.all(15),
+                            child: Card(
+                              color: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.all(16.0),
+                                child: Form(
+                                  key: _fromkey,
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      CustomTFF(
+                                        control_password: control_name,
+                                        lable: "ادخل الاسم",
+                                        textInputType:
+                                            TextInputType.emailAddress,
+                                      ),
+                                      SizedBox(height: 17),
+                                      CustomTFF(
+                                        control_password: control_username,
+                                        lable: "ادخل الايميل ",
+                                        textInputType:
+                                            TextInputType.emailAddress,
+                                      ),
+                                      SizedBox(height: 17),
+                                      CustomTFF(
+                                        control_password: control_password,
+                                        lable: "ادخل الرمز السري",
+                                        obscureText: isPasswordHiden,
+                                        suffexicon: IconButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                isPasswordHiden =
+                                                    !isPasswordHiden;
+                                              });
+                                            },
+                                            icon: Icon(isPasswordHiden
+                                                ? Icons.visibility_off
+                                                : Icons.visibility)),
+                                        textInputType:
+                                            TextInputType.visiblePassword,
+                                      ),
+                                      SizedBox(height: 17),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 139),
+                                          child: TEXT_FORM_FILD(
+                                            text: "هل نسيت كلمة المرور؟",
+                                            press: () {
+                                              Navigator.of(context)
+                                                  .push(MaterialPageRoute(
+                                                builder: (context) =>
+                                                    Forget_Password(),
+                                              ));
+                                            },
+                                          )),
+                                      button_of_login(
+                                        lable: "انشاء حساب",
+                                        on_pressed: () {
+                                          if (_fromkey.currentState!
+                                              .validate()) {
+                                            cubit.SignUp(
+                                                email: control_username.text,
+                                                password: control_password.text,
+                                                name: control_name.text);
+                                          }
+                                        },
+                                      ),
+                                      button_of_login(
+                                        lable: "سجل الدخول باستخدام GOOGLE",
+                                        on_pressed: () {},
+                                      ),
+                                      Text("هل تمتلك حساب  ؟"),
+                                      TEXT_FORM_FILD(
+                                          text: "سجل دخول من هن هنا",
+                                          press: () {}),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ),
-                            CustomTFF(control_password: control_name, lable: "ادخل الاسم",textInputType: TextInputType.emailAddress,),
-                            SizedBox(height: 17),
-                            CustomTFF(control_password: control_username, lable: "ادخل الايميل ",textInputType: TextInputType.emailAddress,),
-                            SizedBox(height: 17),
-                            CustomTFF(control_password: control_password,lable: "ادخل الرمز السري",obscureText: true,suffexicon: Icon(Icons.visibility_off),textInputType: TextInputType.visiblePassword,),
-                            SizedBox(height: 17),
-
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Padding(
-                                padding: const EdgeInsets.only(left: 139),
-                                child: TEXT_FORM_FILD(text: "هل نسيت كلمة المرور؟", press: () {
-                                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => Forget_Password(),));
-                                },)
-                            ),
-                            button_of_login(lable: "انشاء حساب",on_pressed: (){if(_fromkey.currentState!.validate()){
-                              cubit.SignUp(email: control_username.text, password:control_password.text, name: control_name.text);
-                            }},),
-                            button_of_login(lable: "سجل الدخول باستخدام GOOGLE",on_pressed: (){},),
-
-                            Text("هل تمتلك حساب  ؟"),
-                            TEXT_FORM_FILD(text: "سجل دخول من هن هنا", press: (){}),
-
-
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                ),
-              ],
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
-  },
-);
   }
 }
-
-
-
-
-
