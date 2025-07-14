@@ -20,3 +20,9 @@ class SignUp_Error extends AuthinticationState{
   SignUp_Error(this.message);
 }
 
+class GoogleSinInLoading extends AuthinticationState {}
+class GoogleSinInSuccess extends AuthinticationState{}
+class GoogleSinInError extends AuthinticationState{
+  final String message;
+  GoogleSinInError(this.message);
+}

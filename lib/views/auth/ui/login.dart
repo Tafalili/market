@@ -37,7 +37,7 @@ class _LoginState extends State<Login> {
       textDirection: TextDirection.rtl,
       child: BlocConsumer<AuthinticationCubit, AuthinticationState>(
         listener: (context, state) {
-          if (state is Login_Success) {
+          if (state is Login_Success || state is SignUp_Success) {
             Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (context) => MainHome(),
             ));
@@ -132,7 +132,7 @@ class _LoginState extends State<Login> {
                                       ),
                                       button_of_login(
                                         lable: "سجل الدخول باستخدام GOOGLE",
-                                        on_pressed: () {},
+                                        on_pressed: () {cubit.nativeGoogleSignIn();},
                                       ),
                                       Text("هل ما زلت لم تمتلك حساب ؟"),
                                       TEXT_FORM_FILD(

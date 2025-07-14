@@ -39,7 +39,8 @@ SupabaseClient client = Supabase.instance.client;
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: client.auth.currentUser != null?MainHome():Login(),
+        home: Login(),
+        // client.auth.currentUser != null?MainHome():Login(),
       ),
     );
   }
