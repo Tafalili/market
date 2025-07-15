@@ -57,7 +57,9 @@ class AuthinticationCubit extends Cubit<AuthinticationState> {
         accessToken: accessToken,
       );
       emit(GoogleSinInSuccess());
-    } catch (e) {
+    } catch (e, stack) {
+      print("Google Sign-In Error: $e");
+      print(stack); // يطبع Stack Trace للتشخيص الأدق
       emit(GoogleSinInError(e.toString()));
     }
   }

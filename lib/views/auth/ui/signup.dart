@@ -37,7 +37,7 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthinticationCubit, AuthinticationState>(
       listener: (context, state) {
-        if (state is Login_Success || state is SignUp_Success) {
+        if (state is Login_Success || state is GoogleSinInSuccess) {
           Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (context) => MainHome(),
           ));

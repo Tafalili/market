@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:market/views/auth/logic/authintication_cubit.dart';
-import 'package:market/views/auth/ui/WIDGETS/app_colors.dart';
 import 'package:market/views/auth/ui/WIDGETS/show_messgae.dart';
 import 'package:market/views/auth/ui/forget_password.dart';
 import 'package:market/views/auth/ui/signup.dart';
@@ -37,7 +36,7 @@ class _LoginState extends State<Login> {
       textDirection: TextDirection.rtl,
       child: BlocConsumer<AuthinticationCubit, AuthinticationState>(
         listener: (context, state) {
-          if (state is Login_Success || state is SignUp_Success) {
+          if (state is Login_Success || state is GoogleSinInSuccess) {
             Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (context) => MainHome(),
             ));
