@@ -56,6 +56,7 @@ class AuthinticationCubit extends Cubit<AuthinticationState> {
         idToken: idToken,
         accessToken: accessToken,
       );
+      await SendingData(name:googleUser.displayName! ,email:googleUser.email );
       emit(GoogleSinInSuccess());
     } catch (e, stack) {
       print("Google Sign-In Error: $e");
@@ -94,7 +95,7 @@ class AuthinticationCubit extends Cubit<AuthinticationState> {
     try{
       await client
           .from('users')
-          .insert({'user_id':client.auth.currentUser!.id,'name': name, 'email': email});
+          .upsert({'user_id':client.auth.currentUser!.id,'name': name, 'email': email});
       emit(SendingDataSuccess());
     } catch(e){
       print("sending data error : $e");
