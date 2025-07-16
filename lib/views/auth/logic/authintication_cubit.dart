@@ -27,6 +27,7 @@ class AuthinticationCubit extends Cubit<AuthinticationState> {
     try {
       await client.auth.signUp(password: password, email: email);
       emit(Login_Success());
+      SendingData(email: email,name: name);
     } on AuthException catch (e) {
       emit(Login_Error(e.message));
     }
@@ -85,6 +86,19 @@ class AuthinticationCubit extends Cubit<AuthinticationState> {
     } catch (e) {
       print("there are error in reset password $e");
       emit(ResetPasswordError());
+    }
+  }
+
+  Future <void> SendingData({required String name , required String email})async{
+    emit(SendingDataLoading());
+    try{
+      await client
+          .from('users')
+          .insert({'user_id':client.auth.currentUser!.id,'name': name, 'email': email});
+      emit(SendingDataSuccess());
+    } catch(e){
+      print("sending data error : $e");
+
     }
   }
 }

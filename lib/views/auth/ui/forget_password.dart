@@ -6,9 +6,21 @@ import 'package:market/views/auth/logic/authintication_cubit.dart';
 import 'WIDGETS/Custom_btn.dart';
 import 'WIDGETS/text_form_fild.dart';
 
-class Forget_Password extends StatelessWidget {
+class Forget_Password extends StatefulWidget {
    Forget_Password({super.key});
+
+  @override
+  State<Forget_Password> createState() => _Forget_PasswordState();
+}
+
+class _Forget_PasswordState extends State<Forget_Password> {
 TextEditingController forget_controller = TextEditingController();
+@override
+  void dispose() {
+  forget_controller.dispose() ;
+  super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthinticationCubit, AuthinticationState>(

@@ -33,3 +33,7 @@ class LogOutError extends AuthinticationState{}
 class ResetPasswordLoading extends AuthinticationState {}
 class ResetPasswordSuccess extends AuthinticationState{}
 class ResetPasswordError extends AuthinticationState{}
+
+class SendingDataLoading extends AuthinticationState {}
+class SendingDataSuccess extends AuthinticationState{}
+class SendingDataError extends AuthinticationState{}
