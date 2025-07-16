@@ -20,10 +20,9 @@ class AuthinticationCubit extends Cubit<AuthinticationState> {
     }
   }
 
-  Future<void> SignUp(
-      {required String name,
-      required String email,
-      required String password}) async {
+  Future<void> SignUp({required String name,
+    required String email,
+    required String password}) async {
     emit(Login_Loading());
     try {
       await client.auth.signUp(password: password, email: email);
@@ -61,6 +60,31 @@ class AuthinticationCubit extends Cubit<AuthinticationState> {
       print("Google Sign-In Error: $e");
       print(stack); // يطبع Stack Trace للتشخيص الأدق
       emit(GoogleSinInError(e.toString()));
+    }
+  }
+
+
+  Future <void> SignOut() async {
+    emit(LogOutLoading());
+    try {
+      await client.auth.signOut();
+      emit(LogOutSuccess());
+    } catch (e) {
+      print("Google Sign-Out Error: $e");
+
+      emit(LogOutError());
+    }
+  }
+
+  Future <void> ResetPassword(String Email) async {
+    try {
+      emit(ResetPasswordLoading());
+
+      await client.auth.resetPasswordForEmail(Email);
+      emit(ResetPasswordSuccess());
+    } catch (e) {
+      print("there are error in reset password $e");
+      emit(ResetPasswordError());
     }
   }
 }

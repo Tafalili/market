@@ -26,3 +26,10 @@ class GoogleSinInError extends AuthinticationState{
   final String message;
   GoogleSinInError(this.message);
 }
+class LogOutLoading extends AuthinticationState {}
+class LogOutSuccess extends AuthinticationState{}
+class LogOutError extends AuthinticationState{}
+
+class ResetPasswordLoading extends AuthinticationState {}
+class ResetPasswordSuccess extends AuthinticationState{}
+class ResetPasswordError extends AuthinticationState{}

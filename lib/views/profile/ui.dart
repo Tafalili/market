@@ -1,13 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:market/views/auth/logic/authintication_cubit.dart';
 import 'package:market/views/auth/ui/WIDGETS/app_colors.dart';
+import 'package:market/views/auth/ui/login.dart';
 import 'package:market/views/profile/elements_screen/my_ordeers.dart';
 import 'package:market/views/profile/widgets/buttons_of_profile.dart';
 
 import 'elements_screen/edit_nsme.dart';
 
-class Nav_Profile extends StatelessWidget {
+class Nav_Profile extends StatefulWidget {
+  @override
+  State<Nav_Profile> createState() => _Nav_ProfileState();
+}
+
+class _Nav_ProfileState extends State<Nav_Profile> {
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<AuthinticationCubit, AuthinticationState>(
+  listener: (context, state) {
+   if(state is LogOutSuccess){
+     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Login(),));
+   }
+  },
+  builder: (context, state) {
+    AuthinticationCubit cubit = context.read<AuthinticationCubit>();
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -56,7 +72,7 @@ class Nav_Profile extends StatelessWidget {
                     profile_button(lable: 'طلباتي',left: Icons.arrow_forward_ios_outlined,right: Icons.shopping_basket, doIt: () { Navigator.of(context).push(MaterialPageRoute(builder: (context) =>My_Orders() ,)); },),
                     SizedBox(height: 10,),
 
-                    profile_button(lable: 'تسجيل الخروج',left: Icons.arrow_forward_ios_outlined,right: Icons.logout, doIt: () {  },),
+                    profile_button(lable: 'تسجيل الخروج',left: Icons.arrow_forward_ios_outlined,right: Icons.logout, doIt: () { cubit.SignOut(); },),
 
                   ],
                 ),
@@ -66,6 +82,8 @@ class Nav_Profile extends StatelessWidget {
         )),
       ),
     );
+  },
+);
   }
 }
 
