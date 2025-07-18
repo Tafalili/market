@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:market/core/components/circle_progress_indicator.dart';
 import 'package:market/views/auth/logic/authintication_cubit.dart';
 import 'package:market/views/auth/ui/WIDGETS/app_colors.dart';
 import 'package:market/views/auth/ui/login.dart';
@@ -17,7 +18,9 @@ class Nav_Profile extends StatefulWidget {
 class _Nav_ProfileState extends State<Nav_Profile> {
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthinticationCubit, AuthinticationState>(
+    return BlocProvider(
+  create: (context) => AuthinticationCubit()..FetchData(),
+  child: BlocConsumer<AuthinticationCubit, AuthinticationState>(
   listener: (context, state) {
    if(state is LogOutSuccess){
      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Login(),));
@@ -26,7 +29,7 @@ class _Nav_ProfileState extends State<Nav_Profile> {
   builder: (context, state) {
     AuthinticationCubit cubit = context.read<AuthinticationCubit>();
     GetUserModel? user = context.read<AuthinticationCubit>().userModel;
-    return Directionality(
+    return state is LogOutLoading || state is FetchDataLoading?Center(child: circle_progress()): Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
         body: SafeArea(
@@ -85,6 +88,7 @@ class _Nav_ProfileState extends State<Nav_Profile> {
       ),
     );
   },
+),
 );
   }
 }
