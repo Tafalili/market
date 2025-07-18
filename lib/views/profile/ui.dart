@@ -6,6 +6,7 @@ import 'package:market/views/auth/ui/login.dart';
 import 'package:market/views/profile/elements_screen/my_ordeers.dart';
 import 'package:market/views/profile/widgets/buttons_of_profile.dart';
 
+import '../../core/components/user_model.dart';
 import 'elements_screen/edit_nsme.dart';
 
 class Nav_Profile extends StatefulWidget {
@@ -24,6 +25,7 @@ class _Nav_ProfileState extends State<Nav_Profile> {
   },
   builder: (context, state) {
     AuthinticationCubit cubit = context.read<AuthinticationCubit>();
+    GetUserModel? user = context.read<AuthinticationCubit>().userModel;
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -54,13 +56,13 @@ class _Nav_ProfileState extends State<Nav_Profile> {
                     SizedBox(height: 15,),
 
                     Text(
-                      "Mustafa M. Saleh",
+                      user?.name ?? "user",
                       style: TextStyle(
                         color: AppColors.kBlackColor,
                       ),
                     ),
                     Text(
-                      "ttofe90@gmail.com",
+                     user?.email?? "email_user",
                       style: TextStyle(
                         color: AppColors.kGreyColor,
                       ),
