@@ -96,7 +96,7 @@ class _LoginState extends State<Login> {
                                         obscureText: isPasswordhiden,
                                         suffexicon:IconButton(onPressed: (){
                                           setState(() {
-                                          isPasswordhiden=!isPasswordhiden;
+                                          isPasswordhiden=!  isPasswordhiden;
                                         });}, icon: Icon(isPasswordhiden?Icons.visibility_off:Icons.visibility)),
                                         textInputType:
                                             TextInputType.visiblePassword,

@@ -1,0 +1,2 @@
+String base_url = "https://vuzloycexvznnevebnns.supabase.co/rest/v1";
+const String annon_key ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ1emxveWNleHZ6bm5ldmVibm5zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIzMDY4NzIsImV4cCI6MjA2Nzg4Mjg3Mn0.w8y1uJFpaEVZyTtLJuPljyQwMiB3D--3qqK-aaaZthk";

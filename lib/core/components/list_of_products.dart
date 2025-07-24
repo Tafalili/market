@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:market/core/components/home_cubit/home_cubit.dart';
 
 import '../../views/home/home_tools/card_of_products.dart';
 
@@ -11,6 +13,16 @@ final bool shrink;
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(itemBuilder: (context, index) => card_of_products(),itemCount: 10,physics: phisics,shrinkWrap: shrink,);
+    return BlocProvider(
+  create: (context) => HomeCubit()..getDataSupa(),
+  child: BlocConsumer<HomeCubit, HomeState>(
+  listener: (context, state) {
+    // TODO: implement listener
+  },
+  builder: (context, state) {
+    return ListView.builder(itemBuilder: (context, index) => card_of_products(prodactsModel: context.read<HomeCubit>().product[index],),itemCount: context.read<HomeCubit>().product.length,physics: phisics,shrinkWrap: shrink,);
+  },
+),
+);
   }
 }
