@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:market/core/components/user_model.dart';
 import 'package:meta/meta.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -14,6 +15,7 @@ class AuthinticationCubit extends Cubit<AuthinticationState> {
     emit(Login_Loading());
     try {
       await client.auth.signInWithPassword(password: password, email: email);
+      await FetchData();
       emit(Login_Success());
     } on AuthException catch (e) {
       emit(Login_Error(e.message));
@@ -26,6 +28,7 @@ class AuthinticationCubit extends Cubit<AuthinticationState> {
     emit(Login_Loading());
     try {
       await client.auth.signUp(password: password, email: email);
+      await FetchData();
       emit(Login_Success());
       SendingData(email: email,name: name);
     } on AuthException catch (e) {
@@ -57,6 +60,7 @@ class AuthinticationCubit extends Cubit<AuthinticationState> {
         accessToken: accessToken,
       );
       await SendingData(name:googleUser.displayName! ,email:googleUser.email );
+      await FetchData();
       emit(GoogleSinInSuccess());
     } catch (e, stack) {
       print("Google Sign-In Error: $e");
@@ -101,5 +105,19 @@ class AuthinticationCubit extends Cubit<AuthinticationState> {
       print("sending data error : $e");
 
     }
+  }
+  GetUserModel?userModel;
+  Future<void> FetchData() async{
+    emit(FetchDataLoading());
+try {
+ final data= await client
+      .from('users')
+      .select().eq("user_id", "d957a073-057d-4a61-babb-4d37878cf847");
+userModel=GetUserModel(name:data[0]["name"] , email:data[0]["email"] , id:data[0]["user_id"] );
+ print(userModel.toString());
+ emit(FetchDataSuccess());
+} catch(e){
+  emit(FetchDataLoading());
+}
   }
 }

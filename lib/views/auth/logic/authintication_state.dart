@@ -37,3 +37,7 @@ class ResetPasswordError extends AuthinticationState{}
 class SendingDataLoading extends AuthinticationState {}
 class SendingDataSuccess extends AuthinticationState{}
 class SendingDataError extends AuthinticationState{}
+
+class FetchDataLoading extends AuthinticationState {}
+class FetchDataSuccess extends AuthinticationState{}
+class FetchDataError extends AuthinticationState{}

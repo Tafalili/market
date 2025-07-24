@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:market/core/components/circle_progress_indicator.dart';
 import 'package:market/home_page.dart';
 import 'package:market/views/auth/logic/authintication_cubit.dart';
+import 'package:market/views/auth/ui/login.dart';
 import 'WIDGETS/button_of_login.dart';
 import 'WIDGETS/show_messgae.dart';
 import 'WIDGETS/text_button.dart';
@@ -154,7 +155,7 @@ class _SignUpState extends State<SignUp> {
                                       Text("هل تمتلك حساب  ؟"),
                                       TEXT_FORM_FILD(
                                           text: "سجل دخول من هن هنا",
-                                          press: () {}),
+                                          press: () {Navigator.of(context).pushReplacement( MaterialPageRoute(builder: (context) => Login(),));}),
                                     ],
                                   ),
                                 ),
