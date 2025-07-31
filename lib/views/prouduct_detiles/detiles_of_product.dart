@@ -73,9 +73,10 @@ class Product_Detiles extends StatelessWidget {
                                   color: AppColors.kGreyColor,
                                 ))
                           ],
+
                         ),
                         Center(
-                          child: rating(),
+                          child: rating(prodactsModel: prodactsModel,),
                         ),
                         SizedBox(
                           height: 20,
