@@ -34,6 +34,43 @@ class product_detilesCubit extends Cubit<product_detilesState> {
       if (product_detiles_List.isNotEmpty) {
         avaragerate = avaragerate ~/ product_detiles_List.length;
       }
+      bool _checkUserRate({required String productId}){
+        for(var rate_found in product_detiles_List){
+          if((rate_found.forUser==Supabase.instance.client.auth.currentUser!.id) && (rate_found.forProduct == productId)){
+            return true ;
+          }else{
+            return false;
+          }
+        }
+      }
+      Future <void> updateRate({required String productUser})async{
+        emit(update_rate_loading());
+        try{
+          for(var rate in product_detiles_List){
+            if(rate.forUser==Supabase.instance.client.auth.currentUser!.id && rate.forProduct==productUser){
+              service.patchData("rate?select=*&for_user=eq.${Supabase.instance.client.auth.currentUser!.id}&for_product=eq.$productUser",
+                  {
+
+                    "rate":rate.rate,
+                    "for_user":Supabase.instance.client.auth.currentUser!.id,
+                    "for_product":rate.forProduct
+
+                  } );
+
+            }else{
+              service.postData("rate?select=*&for_user=eq.${rate.forUser}&for_product=eq.$productUser",
+                  {
+
+                    "rate":rate.rate,
+                    "for_user":Supabase.instance.client.auth.currentUser!.id,
+                    "for_product":rate.forProduct
+
+                  } );
+            }
+          }
+
+        }catch(e){}
+      }
       print("Average Rate: $avaragerate");
 
       print("Current User ID: ${Supabase.instance.client.auth.currentUser!.id}");
@@ -53,5 +90,34 @@ class product_detilesCubit extends Cubit<product_detilesState> {
       emit(product_detileserror());
       print("Error: $e");
     }
+  }
+
+  Future <void> updateRate({required String productUser})async{
+    emit(update_rate_loading());
+    try{
+      for(var rate in product_detiles_List){
+        if(rate.forUser==Supabase.instance.client.auth.currentUser!.id && rate.forProduct==productUser){
+          service.patchData("rate?select=*&for_user=eq.${Supabase.instance.client.auth.currentUser!.id}&for_product=eq.$productUser",
+              {
+
+            "rate":rate.rate,
+            "for_user":Supabase.instance.client.auth.currentUser!.id,
+            "for_product":rate.forProduct
+
+          } );
+
+        }else{
+          service.postData("rate?select=*&for_user=eq.${rate.forUser}&for_product=eq.$productUser",
+              {
+
+                "rate":rate.rate,
+                "for_user":Supabase.instance.client.auth.currentUser!.id,
+                "for_product":rate.forProduct
+
+              } );
+        }
+      }
+
+    }catch(e){}
   }
 }
