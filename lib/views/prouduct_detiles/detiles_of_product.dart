@@ -7,20 +7,37 @@ import 'package:market/views/auth/ui/WIDGETS/text_form_fild.dart';
 import 'package:market/views/prouduct_detiles/rate/logic/product_detiles_cubit.dart';
 import 'package:market/views/prouduct_detiles/rate/ratemodel.dart';
 import 'package:market/views/prouduct_detiles/rate/rating_bar.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../core/components/cach_image.dart';
 import '../../core/components/prodacts_model.dart';
+import '../../core/components/user_model.dart';
+import '../auth/logic/authintication_cubit.dart';
 
-class Product_Detiles extends StatelessWidget {
+class Product_Detiles extends StatefulWidget {
 
-  TextEditingController comment_controller = TextEditingController();
-  final Ratemodel rm=Ratemodel();
   final ProdactsModel prodactsModel;
    Product_Detiles({super.key, required this.prodactsModel});
 
   @override
+  State<Product_Detiles> createState() => _Product_DetilesState();
+}
+
+class _Product_DetilesState extends State<Product_Detiles> {
+  TextEditingController comment_controller = TextEditingController();
+
+  @override
+  void dispose() {
+    comment_controller;
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  final Ratemodel rm=Ratemodel();
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => product_detilesCubit()..getproduct_detiless(product_id: prodactsModel.productId!),
+      create: (context) => product_detilesCubit()..getproduct_detiless(product_id: widget.prodactsModel.productId!),
       child: BlocConsumer<product_detilesCubit, product_detilesState>(
         listener: (context, state) {
           if(state is product_detilesLoding){
@@ -29,6 +46,8 @@ class Product_Detiles extends StatelessWidget {
         },
         builder: (context, state) {
           product_detilesCubit cubit = context.read<product_detilesCubit>();
+          GetUserModel? user = context.read<AuthinticationCubit>().userModel;
+
 
           return Directionality(
               textDirection: TextDirection.rtl,
@@ -42,7 +61,7 @@ class Product_Detiles extends StatelessWidget {
                       children: [
                         cach_image(
                           url:
-                          prodactsModel.imageUrl??'https://cdn.prod.website-files.com/5ee0a01b09389eebf4c09b45/65e607e3204a6d1354fc81d9_Rectangle%20995.webp',
+                          widget.prodactsModel.imageUrl??'https://cdn.prod.website-files.com/5ee0a01b09389eebf4c09b45/65e607e3204a6d1354fc81d9_Rectangle%20995.webp',
                         ),
                         SizedBox(
                           height: 20,
@@ -50,8 +69,8 @@ class Product_Detiles extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('${prodactsModel.productName}'),
-                            Text('${prodactsModel.price} الف'),
+                            Text('${widget.prodactsModel.productName}'),
+                            Text('${widget.prodactsModel.price} الف'),
                           ],
                         ),
                         Row(
@@ -76,7 +95,7 @@ class Product_Detiles extends StatelessWidget {
 
                         ),
                         Center(
-                          child: rating(prodactsModel: prodactsModel,),
+                          child: rating(prodactsModel: widget.prodactsModel,),
                         ),
                         SizedBox(
                           height: 20,
@@ -84,8 +103,17 @@ class Product_Detiles extends StatelessWidget {
                         CustomTFF(
                             control_password: comment_controller,
                             lable: 'ادخل تعليقك',
-                            suffexicon: Icon(
-                              Icons.send,
+                            suffexicon: IconButton(
+                               onPressed: ()async {
+                                 await context.read<AuthinticationCubit>().FetchData();
+                                 await cubit.addComments(	{
+                                 "comment": comment_controller.text,
+                                 "for_user":Supabase.instance.client.auth.currentUser?.id ,
+                                 "for_product": widget.prodactsModel.productId,
+                                 "user_name": context.read<AuthinticationCubit>().userModel?.name??"user_name"
+                               });
+                                 comment_controller.clear();
+                                 }, icon:Icon( Icons.send),
                             )),
                         SizedBox(
                           height: 20,
@@ -96,13 +124,9 @@ class Product_Detiles extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold)),
                         ),
-                        ListView.separated(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) => comment_list(),
-                            separatorBuilder: (context, index) => Divider(),
-                            itemCount: 10)
+                        user_comment(prodactsModel: widget.prodactsModel,)
                       ],
+
                     ),
                   ),
                 ),
@@ -113,10 +137,44 @@ class Product_Detiles extends StatelessWidget {
   }
 }
 
+class user_comment extends StatelessWidget {
+  const user_comment({
+    super.key, required this.prodactsModel,
+  });
+final ProdactsModel prodactsModel;
+  @override
+  Widget build(BuildContext context) {
+
+    return StreamBuilder(
+      stream: Supabase.instance.client.from("comments").stream(primaryKey: ["id"]).eq("for_product", prodactsModel.productId!).order("created_at"),
+      builder: (_, snapshot) {
+        List<Map<String,dynamic>>?data = snapshot.data;
+if(snapshot.connectionState == ConnectionState.waiting){
+  return Center(child: circle_progress(),);
+}else if(snapshot.hasData){
+  return ListView.separated(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemBuilder: (context, index) => comment_list(commetsMap: data[index],),
+      separatorBuilder: (context, index) => Divider(),
+      itemCount: data!.length);
+  return Center(child: Text("No Comments Yet"),);
+}else if(!snapshot.hasData){
+  return Center(child: Text("No Comments Yet"),);
+}
+else{
+  return Center(child: Text("There are an error"),);
+}
+      }
+    );
+  }
+}
+
 class comment_list extends StatelessWidget {
   const comment_list({
-    super.key,
+    super.key, required this.commetsMap,
   });
+final Map<String,dynamic> commetsMap;
 
   @override
   Widget build(BuildContext context) {
@@ -126,17 +184,17 @@ class comment_list extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
-            'اسم المستخدم',
+            commetsMap["user_name"]??"userName",
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 35),
-            child: Text('التعليق....'),
+            child: Text(commetsMap["comment"]??"comment"),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 72),
             child: Text(
-              'رد',
+              commetsMap["replay"]??"" ,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           )

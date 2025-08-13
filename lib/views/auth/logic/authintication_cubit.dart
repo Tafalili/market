@@ -112,7 +112,7 @@ class AuthinticationCubit extends Cubit<AuthinticationState> {
 try {
  final data= await client
       .from('users')
-      .select().eq("user_id", "d957a073-057d-4a61-babb-4d37878cf847");
+      .select().eq("user_id", Supabase.instance.client.auth.currentUser?.id as Object);
 userModel=GetUserModel(name:data[0]["name"] , email:data[0]["email"] , id:data[0]["user_id"] );
  print(userModel.toString());
  emit(FetchDataSuccess());

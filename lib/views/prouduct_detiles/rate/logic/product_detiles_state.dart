@@ -14,5 +14,9 @@ final class update_rate_loading extends product_detilesState{}
 final class update_rate_success extends product_detilesState{}
 final class update_rate_error extends product_detilesState{}
 
+final class AddCommentloading extends product_detilesState{}
+final class AddCommentsuccess extends product_detilesState{}
+final class AddCommenterror extends product_detilesState{}
+
 
 
