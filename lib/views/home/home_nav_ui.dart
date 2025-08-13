@@ -38,9 +38,9 @@ class _Nav_HomeState extends State<Nav_Home> {
               crossAxisAlignment: CrossAxisAlignment.start,
               // Align text properly for RTL
               children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-                  child: custom_search_fild(), // Fixed widget name assumption
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+                  child: custom_search_fild(onpressed: ()=>Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>SearchBar() ,) ),), // Fixed widget name assumption
                 ),
                 const HomeSlider(),
                 const Padding(
