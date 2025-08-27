@@ -12,8 +12,10 @@ class HomeCubit extends Cubit<HomeState> {
   final ApiService _services = ApiService();
   List<dynamic> data = []; // Store API data
    List<ProdactsModel> product=[];
+  List<ProdactsModel> searchResult=[];
 
-  Future<void> getDataSupa() async {
+
+  Future<void> getDataSupa({String?quiry}) async {
     emit(LoadingProdict());
     try {
       var response = await _services.getData("products?select=*,favorate(*)),purchase(*)");
@@ -21,6 +23,7 @@ class HomeCubit extends Cubit<HomeState> {
 for(var prod in data ){
   product.add(ProdactsModel.fromJson(prod));
   }
+      search(quiry!);
   emit(SuccesProdict());
     } catch (e) {
       print("Error details: $e");
@@ -28,6 +31,15 @@ for(var prod in data ){
         print("DioException: ${e.response?.statusCode}, ${e.response?.data}");
       }
       emit(ErrorProdict());
+    }
+  }
+  void search(String quiry) async {
+    if(quiry != null){
+      for(var product_item in product){
+        if(product_item.productName!.toLowerCase().contains(quiry.toLowerCase())){
+          searchResult.add(product_item);
+        }
+      }
     }
   }
 }

@@ -11,6 +11,7 @@ class product_detilesCubit extends Cubit<product_detilesState> {
   final ApiService service = ApiService();
   int avaragerate = 0;
   List<Ratemodel> product_detiles_List = [];
+
   num rateUser = 5;
 
   Future<void> getproduct_detiless({required String product_id}) async {

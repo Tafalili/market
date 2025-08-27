@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:market/views/home/home_tools/slider.dart';
+import 'package:market/views/home/search_bar.dart';
 import '../../core/components/list_of_products.dart';
 import '../../core/components/search_fild.dart';
 import '../auth/ui/WIDGETS/app_colors.dart';
@@ -40,7 +41,7 @@ class _Nav_HomeState extends State<Nav_Home> {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-                  child: custom_search_fild(onpressed: ()=>Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>SearchBar() ,) ),), // Fixed widget name assumption
+                  child: custom_search_fild(onpressed: ()=>Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>SearchBar_screen() ,) ),), // Fixed widget name assumption
                 ),
                 const HomeSlider(),
                 const Padding(
