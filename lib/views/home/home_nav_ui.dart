@@ -25,7 +25,7 @@ class _Nav_HomeState extends State<Nav_Home> {
     {'label': 'صحه وجمال', 'icon': Icons.health_and_safety_outlined},
     {'label': 'مكياج', 'icon': Icons.woman},
   ];
-
+TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class _Nav_HomeState extends State<Nav_Home> {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-                  child: custom_search_fild(onpressed: ()=>Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>SearchBar_screen() ,) ),), // Fixed widget name assumption
+                  child: custom_search_fild(controller: controller,onpressed: ()=>Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>SearchBar_screen(quiry:controller.text) ,) ),), // Fixed widget name assumption
                 ),
                 const HomeSlider(),
                 const Padding(
@@ -72,7 +72,7 @@ class _Nav_HomeState extends State<Nav_Home> {
                 SizedBox(
                   height: 15,
                 ),
-                List_of_products(shrink: true,phisics: NeverScrollableScrollPhysics(),)
+                List_of_products(shrink: true,phisics: NeverScrollableScrollPhysics(),quiry:controller.text ,)
               ],
             ),
           ),

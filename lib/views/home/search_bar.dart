@@ -5,8 +5,8 @@ import 'package:market/views/prouduct_detiles/detiles_of_product.dart';
 import '../../core/components/search_fild.dart';
 
 class SearchBar_screen extends StatelessWidget {
-  const SearchBar_screen({super.key});
-
+  const SearchBar_screen({super.key, required, required this.quiry });
+final String quiry;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +33,7 @@ class SearchBar_screen extends StatelessWidget {
 
               const SizedBox(height: 15),
               List_of_products(
+                quiry: quiry,
                 shrink: true,
                 phisics: const NeverScrollableScrollPhysics(),
               ),
