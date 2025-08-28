@@ -25,7 +25,7 @@ class _Nav_HomeState extends State<Nav_Home> {
     {'label': 'صحه وجمال', 'icon': Icons.health_and_safety_outlined},
     {'label': 'مكياج', 'icon': Icons.woman},
   ];
-TextEditingController controller = TextEditingController();
+  TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +40,16 @@ TextEditingController controller = TextEditingController();
               // Align text properly for RTL
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-                  child: custom_search_fild(controller: controller,onpressed: ()=>Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>SearchBar_screen(quiry:controller.text) ,) ),), // Fixed widget name assumption
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+                  child: custom_search_fild(
+                    controller: controller,
+                    onpressed: () =>
+                        Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) =>
+                          SearchBar_screen(quiry: controller.text),
+                    )),
+                  ), // Fixed widget name assumption
                 ),
                 const HomeSlider(),
                 const Padding(
@@ -56,7 +64,7 @@ TextEditingController controller = TextEditingController();
                     ),
                   ),
                 ),
-                sliding_catigories_list_view(categories: categories),
+                sliding_catigories_list_view(categori: categories),
                 const Padding(
                   padding: EdgeInsets.only(right: 16, top: 8),
                   // Adjusted for RTL
@@ -72,7 +80,11 @@ TextEditingController controller = TextEditingController();
                 SizedBox(
                   height: 15,
                 ),
-                List_of_products(shrink: true,phisics: NeverScrollableScrollPhysics(),quiry:controller.text ,)
+                List_of_products(
+                  shrink: true,
+                  phisics: NeverScrollableScrollPhysics(),
+                  quiry: controller.text,
+                )
               ],
             ),
           ),
@@ -81,6 +93,3 @@ TextEditingController controller = TextEditingController();
     );
   }
 }
-
-
-

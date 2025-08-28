@@ -10,25 +10,26 @@ final String quiry;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(centerTitle: true, title: Text("Search"),) ,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
-                child: Text(
-                  "المنتجات المفضله",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 35,
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(onPressed: (){Navigator.of(context).pop();}, icon: Icon(Icons.arrow_back_ios)),
+                    Text(
+                      "نتائج البحث",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 35,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-                child: custom_search_fild(), // Add missing search field
               ),
 
               const SizedBox(height: 15),
