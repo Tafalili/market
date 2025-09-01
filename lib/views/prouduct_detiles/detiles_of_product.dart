@@ -4,6 +4,7 @@ import 'package:market/core/components/circle_progress_indicator.dart';
 import 'package:market/core/functions/appbar.dart';
 import 'package:market/views/auth/ui/WIDGETS/app_colors.dart';
 import 'package:market/views/auth/ui/WIDGETS/text_form_fild.dart';
+import 'package:market/views/favorate/logic/favorate_model.dart';
 import 'package:market/views/prouduct_detiles/rate/logic/product_detiles_cubit.dart';
 import 'package:market/views/prouduct_detiles/rate/ratemodel.dart';
 import 'package:market/views/prouduct_detiles/rate/rating_bar.dart';
@@ -12,11 +13,13 @@ import '../../core/components/cach_image.dart';
 import '../../core/components/prodacts_model.dart';
 import '../../core/components/user_model.dart';
 import '../auth/logic/authintication_cubit.dart';
+import '../favorate/logic/favorate_cubit.dart';
 
 class Product_Detiles extends StatefulWidget {
   final ProdactsModel prodactsModel;
+   FavorateModel? favModel;
 
-  Product_Detiles({super.key, required this.prodactsModel});
+  Product_Detiles({super.key, required this.prodactsModel,  this.favModel});
 
   @override
   State<Product_Detiles> createState() => _Product_DetilesState();
@@ -24,6 +27,8 @@ class Product_Detiles extends StatefulWidget {
 
 class _Product_DetilesState extends State<Product_Detiles> {
   TextEditingController comment_controller = TextEditingController();
+  bool _isFavorate = true;
+
 
   @override
   void dispose() {
@@ -36,10 +41,17 @@ class _Product_DetilesState extends State<Product_Detiles> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
+    return MultiBlocProvider(
+  providers: [
+    BlocProvider(
       create: (context) => product_detilesCubit()
         ..getproduct_detiless(product_id: widget.prodactsModel.productId!),
-      child: BlocConsumer<product_detilesCubit, product_detilesState>(
+),
+    BlocProvider(
+      create: (context) => FavorateCubit()..getFavStatus(productID:widget.favModel!.forProduct??"" ),
+    ),
+  ],
+  child: BlocConsumer<product_detilesCubit, product_detilesState>(
         listener: (context, state) {
           if (state is product_detilesLoding) {
             Center(
@@ -88,10 +100,18 @@ class _Product_DetilesState extends State<Product_Detiles> {
                               ],
                             ),
                             IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  setState(() {
+                                    if(widget.favModel!.isFavorate==_isFavorate){
+                                      _isFavorate;
+                                    }else {
+                                      _isFavorate =  !_isFavorate;
+                                    }
+                                  });
+                                },
                                 icon: Icon(
                                   Icons.favorite,
-                                  color: AppColors.kGreyColor,
+                                  color: _isFavorate?AppColors.kGreyColor:AppColors.kPrimaryColor,
                                 ))
                           ],
                         ),
@@ -145,7 +165,7 @@ class _Product_DetilesState extends State<Product_Detiles> {
               ));
         },
       ),
-    );
+);
   }
 }
 

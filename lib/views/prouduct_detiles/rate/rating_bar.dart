@@ -14,6 +14,7 @@ class rating extends StatelessWidget {
     super.key, required this.prodactsModel
   });
   final ProdactsModel prodactsModel;
+
    void navigateWithoutBack(BuildContext context, dynamic view) {
      Navigator.pushReplacement(
        context,
