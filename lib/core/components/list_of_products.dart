@@ -30,10 +30,11 @@ class List_of_products extends StatelessWidget {
         },
         builder: (context, state) {
 
-          List<ProdactsModel> products = quiry != null
-              ? context.read<HomeCubit>().searchResult :
-           category != null ? context.read<HomeCubit>().catigoryView:
-          context.read<HomeCubit>().product;
+          List<ProdactsModel> products = (quiry != null && quiry!.isNotEmpty)
+              ? context.read<HomeCubit>().searchResult
+              : category != null && category!.isNotEmpty
+              ? context.read<HomeCubit>().catigoryView
+              : context.read<HomeCubit>().product;
           return ListView.builder(
             itemBuilder: (context, index) => card_of_products(
               prodactsModel: products[index],
