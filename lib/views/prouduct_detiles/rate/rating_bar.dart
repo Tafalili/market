@@ -37,7 +37,8 @@ class rating extends StatelessWidget {
           print(cubit.rateUser);
           print("11111111111111111111111111111111111111111111");
 
-          return state is product_detilesLoding || state is update_rate_loading ?Center(child: circle_progress(),): RatingBar.builder(
+          return state is product_detilesLoding || state is update_rate_loading ?Center(child: circle_progress(),):
+          RatingBar.builder(
             initialRating: cubit.rateUser.toDouble(),
             minRating: 1,
             direction: Axis.horizontal,

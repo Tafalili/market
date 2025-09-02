@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:market/core/components/circle_progress_indicator.dart';
+import 'package:market/core/components/home_cubit/home_cubit.dart';
 import 'package:market/core/functions/appbar.dart';
 import 'package:market/views/auth/ui/WIDGETS/app_colors.dart';
 import 'package:market/views/auth/ui/WIDGETS/text_form_fild.dart';
@@ -42,18 +43,23 @@ class _Product_DetilesState extends State<Product_Detiles> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-  providers: [
-    BlocProvider(
-      create: (context) => product_detilesCubit()
-        ..getproduct_detiless(product_id: widget.prodactsModel.productId!),
-),
-    BlocProvider(
-      create: (context) => FavorateCubit()..getFavStatus(productID:widget.favModel!.forProduct??"" ),
-    ),
-  ],
+      providers: [
+        BlocProvider(
+          create: (context) => product_detilesCubit()
+            ..getproduct_detiless(product_id: widget.prodactsModel.productId!),
+        ),
+        BlocProvider(
+          create: (context) => HomeCubit(), // Corrected line
+        ),
+      ],
   child: BlocConsumer<product_detilesCubit, product_detilesState>(
         listener: (context, state) {
           if (state is product_detilesLoding) {
+            Center(
+              child: circle_progress(),
+            );
+          }
+          if (state is LoadingFav) {
             Center(
               child: circle_progress(),
             );
@@ -101,15 +107,9 @@ class _Product_DetilesState extends State<Product_Detiles> {
                             ),
                             IconButton(
                                 onPressed: () {
-                                  setState(() {
-                                    if(widget.favModel!.isFavorate==_isFavorate){
-                                      _isFavorate;
-                                    }else {
-                                      _isFavorate =  !_isFavorate;
-                                    }
-                                  });
+                                  context.read<HomeCubit>().favorate(productID: widget.prodactsModel.productId??"");print(widget.prodactsModel.productId??"");
                                 },
-                                icon: Icon(
+                                icon:state is product_detilesLoding || state is LoadingFav ?Center(child: circle_progress(),): Icon(
                                   Icons.favorite,
                                   color: _isFavorate?AppColors.kGreyColor:AppColors.kPrimaryColor,
                                 ))

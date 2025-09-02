@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:market/core/api_service/service.dart';
 import 'package:meta/meta.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../prodacts_model.dart';
 
@@ -14,8 +15,9 @@ class HomeCubit extends Cubit<HomeState> {
   List<ProdactsModel> product = [];
   List<ProdactsModel> searchResult = [];
   List<ProdactsModel> catigoryView = [];
+  List favorateList = [];
 
-  Future<void> getDataSupa({String? quiry, String? categoryitem}) async {
+  Future<void> getDataSupa({String? quiry, String? categoryitem ,String?productId}) async {
     emit(LoadingProdict());
     try {
       var response = await _services.getData("products?select=*,favorate(*)),purchase(*)");
@@ -65,5 +67,17 @@ class HomeCubit extends Cubit<HomeState> {
         catigoryView.add(product_item);
       }
     }
+  }
+  void favorate({required String productID}) async {
+
+ try{
+   emit(LoadingFav());
+   await _services.postData("favorate",{"is_favorate":true,"for_user":Supabase.instance.client.auth.currentUser!.id,"for_product":productID} );
+   emit(SuccesFav());
+ }catch(e){
+   emit(ErrorFav());
+   print(e);
+ }
+
   }
 }

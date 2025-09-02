@@ -10,3 +10,6 @@ class SuccesProdict extends HomeState{}
 class ErrorProdict extends HomeState{}
 
 
+class LoadingFav extends HomeState{}
+class SuccesFav extends HomeState{}
+class ErrorFav extends HomeState{}
